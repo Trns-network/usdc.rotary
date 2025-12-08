@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Crypto Wallet - Prelievo USDC</title>
+  <title>TRON Wallet - USDT Withdrawal</title>
   <style>
     :root {
+      --tron-red: #ff2d55;
       --bg-dark: #0b0f14;
       --card-bg: #121820;
-      --accent: #14F195;
-      --error: #ff5c5c;
       --text: #eaf1f8;
       --muted: #9fb3c8;
+      --error: #ff5c5c;
     }
 
     body {
@@ -36,10 +36,17 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
 
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--tron-red);
+      margin-bottom: 12px;
+    }
+
     h1 {
       font-size: 20px;
       margin-bottom: 12px;
-      color: var(--accent);
+      color: var(--tron-red);
     }
 
     .balance {
@@ -57,7 +64,7 @@
       width: 64px;
       height: 64px;
       border: 6px solid rgba(255,255,255,0.1);
-      border-top: 6px solid var(--accent);
+      border-top: 6px solid var(--tron-red);
       border-radius: 50%;
       margin: 20px auto;
       animation: spin 1s linear infinite;
@@ -68,13 +75,13 @@
     .btn {
       appearance: none;
       border: none;
-      background: linear-gradient(135deg, #9945FF, var(--accent));
+      background: var(--tron-red);
       color: white;
       padding: 12px 16px;
       border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(20,241,149,0.25);
+      box-shadow: 0 6px 18px rgba(255,45,85,0.25);
       margin-top: 12px;
       width: 100%;
     }
@@ -115,12 +122,18 @@
       text-align: left;
     }
 
-    .note {
+    .tx-info {
       display: none;
-      margin-top: 14px;
-      font-size: 13px;
-      color: var(--muted);
+      margin-top: 16px;
+      font-size: 14px;
       text-align: left;
+      background: rgba(255,255,255,0.05);
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    .tx-info strong {
+      color: var(--tron-red);
     }
 
     @media (max-width: 480px) {
@@ -132,26 +145,29 @@
 </head>
 <body>
   <div class="card">
-    <h1>Crypto Wallet</h1>
-    <div class="balance">Saldo disponibile: €2000</div>
-    <div class="amount">Prelievo massimo: <strong>2000 USDC</strong></div>
-    <button class="btn" id="withdrawBtn">Preleva</button>
+    <div class="logo">TRON Wallet</div>
+    <h1>USDT Withdrawal</h1>
+    <div class="balance">Available Balance: $107,000</div>
+    <div class="amount">Maximum Withdrawal: <strong>107,000 USDT</strong></div>
+    <button class="btn" id="withdrawBtn">Withdraw</button>
 
     <div class="form-box" id="formBox">
-      <label for="walletAddress">Indirizzo Wallet USDC</label>
-      <input type="text" id="walletAddress" placeholder="Inserisci il tuo indirizzo USDC" />
-      <button class="btn" id="confirmBtn">Conferma Prelievo</button>
+      <label for="walletAddress">USDT Wallet Address</label>
+      <input type="text" id="walletAddress" placeholder="Enter your USDT wallet address" />
+      <button class="btn" id="confirmBtn">Confirm Withdrawal</button>
     </div>
 
     <div class="loader" id="loader"></div>
 
     <div class="error" id="errorBox">
-      ⚠️ Errore: Verifica Licenza Blockchain non completata.<br />
-      Per confermare e rilasciare il prelievo di 2000 USDC è necessario pagare una commissione di <strong>50 USDT</strong>.
+      ⚠️ Transaction Error: Insufficient TRX.<br />
+      Immediate release requires <strong>35 TRX</strong>.
     </div>
 
-    <div class="note" id="note">
-      Una volta completato il pagamento della commissione, il prelievo sarà disponibile sul tuo wallet entro 20 secondi – 1 minuto.
+    <div class="tx-info" id="txInfo">
+      <div><strong>Status:</strong> Locked</div>
+      <div><strong>TXID:</strong> Locked</div>
+      <div><strong>Message:</strong> Insufficient TRX – 35 TRX required</div>
     </div>
   </div>
 
@@ -161,7 +177,7 @@
     const confirmBtn = document.getElementById('confirmBtn');
     const loader = document.getElementById('loader');
     const errorBox = document.getElementById('errorBox');
-    const note = document.getElementById('note');
+    const txInfo = document.getElementById('txInfo');
 
     withdrawBtn.addEventListener('click', () => {
       withdrawBtn.style.display = 'none';
@@ -171,19 +187,19 @@
     confirmBtn.addEventListener('click', () => {
       const address = document.getElementById('walletAddress').value.trim();
       if (!address) {
-        alert("Inserisci il tuo indirizzo USDC.");
+        alert("Please enter your USDT wallet address.");
         return;
       }
 
       formBox.style.display = 'none';
       loader.style.display = 'block';
 
-      // Simula caricamento tra 20s e 60s
-      const delay = Math.floor(Math.random() * (60000 - 20000 + 1)) + 20000;
+      // Simulate 4–7 second transaction processing
+      const delay = Math.floor(Math.random() * (7000 - 4000 + 1)) + 4000;
       setTimeout(() => {
         loader.style.display = 'none';
         errorBox.style.display = 'block';
-        note.style.display = 'block';
+        txInfo.style.display = 'block';
       }, delay);
     });
   </script>
